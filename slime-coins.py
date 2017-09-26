@@ -58,6 +58,24 @@ AUGMENTATION_STRING = {
         u'\u255d',
         u'\u256e',
     ],
+    'emoji': [
+        ' ',
+        u'\u26ac',
+        u'\u2603',
+        u'\u2605',
+        u'\u2602',
+        u'\u260e',
+        u'\u2622',
+        u'\u262e',
+        u'\u263a',
+        u'\u263b',
+        u'\u2660',
+        u'\u2661',
+        u'\u2662',
+        u'\u2663',
+        u'\u2664',
+    ],
+
 }
 
 AUGMENTATION_GROUP = 'ascii'
@@ -178,6 +196,9 @@ def parse_args():
         '-d', '--drawing-chars', action='store_true',
         help='Use drawing-chars')
     ap.add_argument(
+        '-u', '--emoji-chars', action='store_true',
+        help='Use emoji-chars')
+    ap.add_argument(
         '-c', '--colors', action='store_true',
         help='Use colors')
     ap.add_argument(
@@ -189,6 +210,10 @@ def parse_args():
 
 def set_augmentation_group(args):
     global AUGMENTATION_GROUP
+
+    if args.emoji_chars:
+        AUGMENTATION_GROUP = 'emoji'
+        return
 
     if args.block_chars:
         AUGMENTATION_GROUP = 'block'
