@@ -13,7 +13,7 @@ FLDBASE = 8
 FLDSIZE_X = (FLDBASE * 2 + 1)
 FLDSIZE_Y = (FLDBASE + 1)
 
-START = ((FLDSIZE_X / 2), (FLDSIZE_Y / 2))
+START = (int(FLDSIZE_X / 2), int(FLDSIZE_Y / 2))
 
 # Initialize FIELDS to fill x and y with 0s
 FIELDS = [[0 * j for j in range(9)] for i in range(17)]
@@ -226,10 +226,13 @@ def set_augmentation_group(args):
 
 if __name__ == '__main__':
     args = parse_args()
-    base = sys.stdin.read().strip()
+    base = sys.stdin.read().strip().encode('utf-8')
 
     if args.base64_encoded:
-        base = base64.decodestring(bytes(base, 'utf-8'))
+        try:
+            base = base64.decodestring(bytes(base, 'utf-8'))
+        except TypeError:
+            base = base64.decodestring(base)
 
     md5 = md5sum(base)
     print(md5)
