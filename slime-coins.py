@@ -98,7 +98,7 @@ def to_pairs(data):
     """
     Turns list of data into tuples of data pairs.
     """
-    return zip(data[::2], data[1::2])
+    return list(zip(data[::2], data[1::2]))
 
 
 def to_moves(data):
@@ -229,7 +229,7 @@ if __name__ == '__main__':
     base = sys.stdin.read().strip()
 
     if args.base64_encoded:
-        base = base64.decodestring(base)
+        base = base64.decodestring(bytes(base, 'utf-8'))
 
     md5 = md5sum(base)
     print(md5)
